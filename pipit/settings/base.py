@@ -24,41 +24,64 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
-    "home",
-    "search",
-    "wagtail.contrib.forms",
-    "wagtail.contrib.redirects",
-    "wagtail.embeds",
-    "wagtail.sites",
-    "wagtail.users",
-    "wagtail.snippets",
-    "wagtail.documents",
-    "wagtail.images",
-    "wagtail.search",
-    "wagtail.admin",
-    "wagtail",
-    "modelcluster",
-    "taggit",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
+    # "django.contrib.gis",
+
+    #"home",
+    #"search",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.admin",
+    "wagtail.search",
+    "wagtail",
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.contrib.modeladmin",
+    "wagtail.contrib.routable_page",
+    "wagtail.contrib.settings",
+    "modelcluster",
+    "taggit",
+    "wagtail_meta_preview",
+    "wagtail_headless_preview",
+    "rest_framework",
+    'corsheaders',
+
+# Project specific apps
+    "pipit",
+    #"sitesettings",
+    "customuser",
+    "customimage",
+    "customdocument",
+    #"main",
+    #"nextjs",
+
 ]
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    #in pipit the below is not used- is it needed?
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
 
 ROOT_URLCONF = "pipit.urls"
+APPEND_SLASH = True
 
 TEMPLATES = [
     {
@@ -92,6 +115,8 @@ DATABASES = {
 }
 
 
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -124,7 +149,17 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Email
+DEFAULT_FROM_EMAIL = "noreply@example.com" #get_env("DEFAULT_FROM_EMAIL", default="noreply@example.com")
 
+# Auth
+AUTH_USER_MODEL = "customuser.User"
+
+# Wagtail
+WAGTAIL_SITE_NAME = "Company-Project"
+WAGTAILIMAGES_IMAGE_MODEL = "customimage.CustomImage"
+WAGTAILDOCS_DOCUMENT_MODEL = "customdocument.CustomDocument"
+WAGTAIL_ALLOW_UNICODE_SLUGS = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -149,10 +184,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 
-# Wagtail settings
-
-WAGTAIL_SITE_NAME = "pipit"
-
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
 WAGTAILSEARCH_BACKENDS = {
@@ -164,3 +195,23 @@ WAGTAILSEARCH_BACKENDS = {
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "http://example.com"
+
+# Prevent content type sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Admin
+ADMIN_URL = "wt/admin/"
+
+# NextJS
+WAGTAIL_HEADLESS_PREVIEW = {
+    "CLIENT_URLS": {
+        "default": "/api/preview/",
+    }
+}
+"""
+# Sentry
+SENTRY_DSN: Optional[str] = None
+SENTRY_ENVIRONMENT: Optional[str] = None
+"""
+
+CORS_ORIGIN_ALLOW_ALL = True
