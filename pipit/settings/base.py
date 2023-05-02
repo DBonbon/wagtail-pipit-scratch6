@@ -116,7 +116,7 @@ WSGI_APPLICATION = "pipit.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        "NAME": "dbpostgre",
+        "NAME": "dbpostgres",
         "USER": "dbuser",
         "PASSWORD": "dbpsw",
         "HOST": "localhost",
