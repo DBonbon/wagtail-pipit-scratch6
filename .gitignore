@@ -25,6 +25,7 @@ pip-log.txt
 
 # SQL-Files
 *.sql
+*.db.sqlite3
 
 # Log files
 *.log
