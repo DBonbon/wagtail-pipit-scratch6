@@ -115,7 +115,7 @@ WSGI_APPLICATION = "pipit.wsgi.application"
 }"""
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         "NAME": "dbpostgres",
         "USER": "dbuser",
         "PASSWORD": "dbpsw",
@@ -191,7 +191,6 @@ STATIC_URL = "/static/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
-
 
 # Search
 # https://docs.wagtail.org/en/stable/topics/search/backends.html
